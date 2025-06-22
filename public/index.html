@@ -153,6 +153,7 @@ textarea, input, select {
   100% { transform: rotate(360deg); }
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
 <div style="position: absolute; top: 20px; left: 30px;">
@@ -392,8 +393,26 @@ document.getElementById('spinner').style.display = 'none';
             document.getElementById('exportBtn').style.display = 'none';
         }
 
-        function exportToPDF() {
-            const { jsPDF } = window.jspdf;
+        
+function exportToPDF() {
+  const element = document.getElementById("results");
+
+  if (!element || !element.innerText.trim()) {
+    alert("Nothing to export.");
+    return;
+  }
+
+  const opt = {
+    margin:       0.5,
+    filename:     'AI_Project_Risks.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 1 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+
+  html2pdf().from(element).set(opt).save();
+}
+ = window.jspdf;
             const doc = new jsPDF();
             doc.html(document.querySelector('#results'), {
                 callback: function (pdf) {
