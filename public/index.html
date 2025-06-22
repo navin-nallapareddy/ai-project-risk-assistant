@@ -253,11 +253,7 @@ textarea, input, select {
 
     <script>
         async function generateRisks() {
-            const apiKey = document.getElementById('apiKey').value.trim();
-            if (!apiKey) {
-                alert('Please enter your OpenAI API Key.');
-                return;
-            }
+          
             const projectName = document.getElementById('projectName').value;
             const projectType = document.getElementById('projectType').value;
             const scopeDescription = document.getElementById('scopeDescription').value;
