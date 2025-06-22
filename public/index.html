@@ -238,6 +238,7 @@ textarea, input, select {
 </button>
 
     <button onclick="clearForm()" style="max-width: 200px; margin-left: 1rem;">Clear Form</button>
+    <Br>
     <h2 id="resultsHeader" style="display:none;">Risks & Mitigations</h2>
     <div id="results"></div>
 
@@ -305,15 +306,12 @@ document.getElementById('spinner').style.display = 'inline-block';
                 if (response.ok && data.choices && data.choices.length > 0 && data.choices[0].message) {
                     const content = data.choices[0].message.content;
                     document.getElementById('results').innerHTML = parseTable(content);
-                    document.getElementById('exportBtn').style.display = 'inline-block';
                 } else {
                     const errorMessage = data.error?.message || 'Unexpected API response.';
                     document.getElementById('results').innerHTML = `Error: ${errorMessage}`;
-                    document.getElementById('exportBtn').style.display = 'none';
                 }
             } catch (error) {
                 document.getElementById('results').innerHTML = 'Error generating risks. Check console for details.';
-                document.getElementById('exportBtn').style.display = 'none';
             } finally {
                 button.disabled = false;
                 
@@ -384,8 +382,7 @@ document.getElementById('spinner').style.display = 'none';
             document.getElementById('knownIssues').value = '';
             document.getElementById('results').innerHTML = '';
             document.getElementById('resultsHeader').style.display = 'block';
-    document.getElementById('resultsHeader').textContent = `${projectName || 'Project'} - Risks & Mitigations`;
-            document.getElementById('exportBtn').style.display = 'none';
+            document.getElementById('resultsHeader').textContent = `${projectName || 'Project'} - Risks & Mitigations`;
         }
 
         function exportToPDF() {
