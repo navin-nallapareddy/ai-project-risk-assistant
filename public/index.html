@@ -1,1 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Project Risk Assistant</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #1f2937;
+    font-size: 16px;
+}
 
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 2rem 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: 600;
+    margin-top: 1rem;
+    display: block;
+    color: #374151;
+    font-size: 1rem;
+}
+
+input, textarea, select, button {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background-color: #f9fafb;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #3b82f6;
+    outline: none;
+    background-color: #ffffff;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+#exportBtn {
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table thead {
+    background-color: #f3f4f6;
+}
+
+table th, table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+table tr:hover {
+    background-color: #f9fafb;
+}
+
+table th {
+    font-weight: 700;
+    color: #374151;
+}
+
+.severity-critical {
+    background-color: #fee2e2;
+    color: #991b1b;
+    font-weight: bold;
+}
+
+.severity-high {
+    background-color: #fef3c7;
+    color: #b45309;
+    font-weight: bold;
+}
+
+.severity-medium {
+    background-color: #fef9c3;
+    color: #92400e;
+    font-weight: bold;
+}
+
+.severity-low {
+    background-color: #dcfce7;
+    color: #166534;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    max-width: 700px;
+}
+
+textarea, input, select {
+    width: 100%;
+    max-width: 100%;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<div style="position: absolute; top: 20px; left: 30px;">
+    <img src="Navin.jpeg" alt="Profile" style="
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    " />
+</div>
+
+<div style="position: absolute; top: 20px; right: 30px;">
+    <a href="https://www.buymeacoffee.com/yourname" target="_blank" style="
+        text-decoration: none;
+        background-color: #ffdd00;
+        color: #000;
+        padding: 8px 14px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-family: 'Segoe UI', sans-serif;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    ">
+        ☕ Buy Me a Coffee
+    </a>
+</div>
+
+<div class="container">
+    
+<h1 style="
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    background: linear-gradient(to right, #3b82f6, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+">AI Project Risk Assistant</h1>
+
+    <div class="form-group"><label>Project Name</label>
+    <input type="text" id="projectName" />
+    <div class="form-group" style="max-width: 100%;">
+<label>Project Type</label>
+    <select id="projectType" style="width: 100%; max-width: 100%; display: block;">
+    <option>AI Integration into Existing Systems</option>
+    <option>AI/ML Deployment</option>
+    <option>Application Integration</option>
+    <option>Collaboration Tools Rollout</option>
+    <option>Compliance & Audit</option>
+    <option>CRM Migration</option>
+    <option>Custom Software Development</option>
+    <option>Cybersecurity Enhancement</option>
+    <option>Data Governance Initiative</option>
+    <option>Data Warehouse / BI</option>
+    <option>DevOps Automation</option>
+    <option>Disaster Recovery Planning</option>
+    <option>ERP Upgrade</option>
+    <option>Help Desk Modernization</option>
+    <option>Identity and Access Management (IAM)</option>
+    <option>Infrastructure Upgrade</option>
+    <option>IT Asset Management</option>
+    <option>IT Governance</option>
+    <option>IT Service Management</option>
+    <option>MES Implementation</option>
+    <option>Mobile App Development</option>
+    <option>New ERP Implementation</option>
+    <option>New Software Implementation</option>
+    <option>Other</option>
+</select></div></div>
+    <div class="form-group"><label>Scope Description</label>
+    <textarea id="scopeDescription" rows="5" placeholder="Describe the project scope briefly..."></textarea></div>
+    <div class="form-group">
+<div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 260px; max-width: 300px; margin-right: 1rem;">
+        <label>Target Start Date</label>
+        <input type="date" id="startDate" />
+    </div>
+    <div style="flex: 1; min-width: 260px; max-width: 300px; margin-left: auto;">
+        <label>Target End Date</label>
+        <input type="date" id="endDate" />
+    </div>
+</div>
+
+    <label>Constraints</label>
+    <textarea id="constraints" rows="5" placeholder="e.g., Limited budget, tight deadline..."></textarea></div>
+    <div class="form-group"><label>Known Issues / Concerns</label>
+    <textarea id="knownIssues" rows="5" placeholder="e.g., Legacy system instability, vendor delays..."></textarea></div>
+    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+<button onclick="generateRisks()" id="generateBtn" style="max-width: 200px; display: flex; align-items: center; justify-content: center;">
+    <span id="generateBtnText">Generate Risks</span>
+    <span id="spinner" style="display: none; margin-left: 8px; width: 16px; height: 16px; border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></span>
+</button>
+
+    <button onclick="clearForm()" style="max-width: 200px; margin-left: 1rem;">Clear Form</button>
+    <button id="exportBtn" style="max-width: 200px; margin-left: 1rem;" onclick="exportToPDF()">Export to PDF</button></div>
+    <h2 id="resultsHeader" style="display:none;">Risks & Mitigations</h2>
+    <div id="results"></div>
+
+    <script>
+        async function generateRisks() {
+            const apiKey = document.getElementById('apiKey').value.trim();
+            if (!apiKey) {
+                alert('Please enter your OpenAI API Key.');
+                return;
+            }
+            const projectName = document.getElementById('projectName').value;
+            const projectType = document.getElementById('projectType').value;
+            const scopeDescription = document.getElementById('scopeDescription').value;
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const constraints = document.getElementById('constraints').value;
+            const knownIssues = document.getElementById('knownIssues').value;
+
+            document.getElementById('resultsHeader').style.display = 'block';
+    document.getElementById('resultsHeader').textContent = `${projectName || 'Project'} - Risks & Mitigations`;
+
+            const prompt = `
+You are an expert IT Program Manager with 20 years of experience managing large-scale projects.
+
+Given the following project details, analyze potential project risks, their severity and likelihood, and recommend mitigation actions.
+
+Output in the following structured table format:
+| Risk | Severity | Likelihood | Mitigation |
+
+Project Details:
+Project Name: ${projectName}
+Project Type: ${projectType}
+Scope Description: ${scopeDescription}
+Start Date: ${startDate}
+End Date: ${endDate}
+Constraints: ${constraints}
+Known Issues / Concerns: ${knownIssues}
+
+If any information is missing, make reasonable assumptions based on the project type.
+`;
+
+            const button = document.querySelector('button[onclick="generateRisks()"]');
+            button.disabled = true;
+            
+document.getElementById('generateBtnText').textContent = 'Generating...';
+document.getElementById('spinner').style.display = 'inline-block';
+
+            document.getElementById('results').innerHTML = '';
+
+            const apiUrl = 'https://api.openai.com/v1/chat/completions';
+            const requestPayload = {
+                model: 'gpt-4o',
+                messages: [
+                    { role: 'user', content: prompt }
+                ],
+                temperature: 0.3,
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`,
+                    },
+                    body: JSON.stringify(requestPayload)
+                });
+
+                const data = await response.json();
+                if (response.ok && data.choices && data.choices.length > 0 && data.choices[0].message) {
+                    const content = data.choices[0].message.content;
+                    document.getElementById('results').innerHTML = parseTable(content);
+                    document.getElementById('exportBtn').style.display = 'inline-block';
+                } else {
+                    const errorMessage = data.error?.message || 'Unexpected API response.';
+                    document.getElementById('results').innerHTML = `Error: ${errorMessage}`;
+                    document.getElementById('exportBtn').style.display = 'none';
+                }
+            } catch (error) {
+                document.getElementById('results').innerHTML = 'Error generating risks. Check console for details.';
+                document.getElementById('exportBtn').style.display = 'none';
+            } finally {
+                button.disabled = false;
+                
+document.getElementById('generateBtnText').textContent = 'Generate Risks';
+document.getElementById('spinner').style.display = 'none';
+
+            }
+        }
+
+        function parseTable(markdown) {
+            const lines = markdown.split('\n').filter(line => line.includes('|'));
+            if (lines.length < 2) return 'No table found in response.';
+
+            const headers = lines[0].split('|').map(h => h.trim()).filter(h => h);
+            const rows = lines.slice(2).map(line =>
+                line.split('|').map(cell => cell.trim()).filter(cell => cell)
+            );
+
+            const severityMap = { 'Critical': 4, 'High': 3, 'Medium': 2, 'Low': 1 };
+            const likelihoodMap = { 'Very Likely': 4, 'Likely': 3, 'Possible': 2, 'Unlikely': 1 };
+
+            const rowsWithScore = rows.map(row => {
+                const severityScore = severityMap[row[1]] || 0;
+                const likelihoodScore = likelihoodMap[row[2]] || 0;
+                const totalScore = severityScore * likelihoodScore;
+                return { row, score: totalScore };
+            });
+
+            rowsWithScore.sort((a, b) => b.score - a.score);
+
+            let html = '<table><thead><tr><th>#</th>' +
+                headers.map(h => `<th>${h}</th>`).join('') +
+                '</tr></thead><tbody>' +
+                rowsWithScore.map((item, index) => {
+                    const severityClass = getSeverityClass(item.row[1]);
+                    return `<tr><td>${index + 1}</td>` +
+                        item.row.map((cell, i) => {
+                            if (i === 1) {
+                                return `<td class="${severityClass}">${cell}</td>`;
+                            } else {
+                                return `<td>${cell}</td>`;
+                            }
+                        }).join('') +
+                        '</tr>';
+                }).join('') +
+                '</tbody></table>';
+
+            return html;
+        }
+
+        function getSeverityClass(severity) {
+            switch (severity) {
+                case 'Critical': return 'severity-critical';
+                case 'High': return 'severity-high';
+                case 'Medium': return 'severity-medium';
+                case 'Low': return 'severity-low';
+                default: return '';
+            }
+        }
+
+        function clearForm() {
+            document.getElementById('projectName').value = '';
+            document.getElementById('projectType').value = 'ERP Upgrade';
+            document.getElementById('scopeDescription').value = '';
+            document.getElementById('startDate').value = '';
+            document.getElementById('endDate').value = '';
+            document.getElementById('constraints').value = '';
+            document.getElementById('knownIssues').value = '';
+            document.getElementById('results').innerHTML = '';
+            document.getElementById('resultsHeader').style.display = 'block';
+    document.getElementById('resultsHeader').textContent = `${projectName || 'Project'} - Risks & Mitigations`;
+            document.getElementById('apiKey').value = '';
+            document.getElementById('exportBtn').style.display = 'none';
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.html(document.querySelector('#results'), {
+                callback: function (pdf) {
+                    pdf.save('Risks_and_Mitigations.pdf');
+                },
+                x: 10,
+                y: 10,
+                html2canvas: { scale: 0.5 }
+            });
+        }
+    </script>
+</div>
+</body>
+</html>
