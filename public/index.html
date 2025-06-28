@@ -5,204 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>AI Project Risk Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-:root {
-    --bg-color: #f3f4f6;
-    --text-color: #1f2937;
-    --container-bg: #ffffff;
-    --button-bg: #2563eb;
-    --button-hover-bg: #1d4ed8;
-    --input-bg: #f9fafb;
-    --input-border: #d1d5db;
-    --heading-start: #3b82f6;
-    --heading-end: #9333ea;
-}
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
-/* Theme classes */
-body.ocean-breeze {
-    --bg-color: #fff6f2;
-    --text-color: #5a2e2e;
-    --container-bg: #ffffff;
-    --button-bg: #ff6b6b;
-    --button-hover-bg: #ff2e2e;
-    --heading-start: #ff7e5f;
-    --heading-end: #feb47b;
-}
+    :root {
+      --bg-color: #f9f9f9;
+      --text-color: #333;
+      --container-bg-color: #ffffff;
+      --button-bg-color: #2563eb;
+      --button-hover-color: #1d4ed8;
+      --header-gradient-start: #3b82f6;
+      --header-gradient-end: #9333ea;
+      --result-bg-color: #f0f0f0;
+      --result-border-color: #ddd;
+      --result-table-th-bg: #2563eb;
+      --link-bg-color: #ffdd00;
+      --link-text-color: #000;
+    }
 
-body.earth-tones {
-    --bg-color: #f1f4f3;
-    --text-color: #2f3e46;
-    --container-bg: #ffffff;
-    --button-bg: #52796f;
-    --button-hover-bg: #354f52;
-    --heading-start: #79b473;
-    --heading-end: #355c7d;
-}
+    /* Ocean Breeze theme */
+    .theme-ocean {
+      --bg-color: #e0f7fa;
+      --text-color: #006064;
+      --container-bg-color: #ffffff;
+      --button-bg-color: #00acc1;
+      --button-hover-color: #00838f;
+      --header-gradient-start: #00acc1;
+      --header-gradient-end: #004d40;
+      --result-bg-color: #b2ebf2;
+      --result-border-color: #4dd0e1;
+      --result-table-th-bg: #00acc1;
+    }
 
-body.midnight {
-    --bg-color: #1f2937;
-    --text-color: #f3f4f6;
-    --container-bg: #111827;
-    --button-bg: #3b82f6;
-    --button-hover-bg: #2563eb;
-    --heading-start: #22d3ee;
-    --heading-end: #3b82f6;
-}
+    /* Earth Tones theme */
+    .theme-earth {
+      --bg-color: #f7f4e9;
+      --text-color: #7b4b3a;
+      --container-bg-color: #ffffff;
+      --button-bg-color: #c19a6b;
+      --button-hover-color: #966d4f;
+      --header-gradient-start: #c19a6b;
+      --header-gradient-end: #7b4b3a;
+      --result-bg-color: #f0eae2;
+      --result-border-color: #d6c7b7;
+      --result-table-th-bg: #c19a6b;
+    }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-size: 16px;
-}
+    /* Midnight theme */
+    .theme-midnight {
+      --bg-color: #1a1a2e;
+      --text-color: #e0e0e0;
+      --container-bg-color: #16213e;
+      --button-bg-color: #0f3460;
+      --button-hover-color: #e94560;
+      --header-gradient-start: #0f3460;
+      --header-gradient-end: #e94560;
+      --result-bg-color: #212c45;
+      --result-border-color: #33415c;
+      --result-table-th-bg: #0f3460;
+    }
 
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 2rem 1.5rem;
-    background: var(--container-bg);
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-}
-
-h1 {
-    text-align: center;
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 2rem;
-}
-
-h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-color);
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
-label {
-    font-weight: 600;
-    margin-top: 1rem;
-    display: block;
-    color: #374151;
-    font-size: 1rem;
-}
-
-input, textarea, select, button {
-    width: 100%;
-    margin-top: 0.5rem;
-    margin-bottom: 1.25rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
-    background-color: var(--input-bg);
-}
-
-input:focus, textarea:focus, select:focus {
-    border-color: var(--heading-start);
-    outline: none;
-    background-color: #ffffff;
-}
-
-button {
-    background-color: var(--button-bg);
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.75rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: var(--button-hover-bg);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 2rem;
-    font-size: 0.95rem;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-table thead {
-    background-color: var(--bg-color);
-}
-
-table th, table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-table tr:hover {
-    background-color: var(--input-bg);
-}
-
-table th {
-    font-weight: 700;
-    color: #374151;
-}
-
-.severity-critical {
-    background-color: #fee2e2;
-    color: #991b1b;
-    font-weight: bold;
-}
-
-.severity-high {
-    background-color: #fef3c7;
-    color: #b45309;
-    font-weight: bold;
-}
-
-.severity-medium {
-    background-color: #fef9c3;
-    color: #92400e;
-    font-weight: bold;
-}
-
-.severity-low {
-    background-color: #dcfce7;
-    color: #166534;
-    font-weight: bold;
-}
-
-.form-group {
-    margin-bottom: 1.5rem;
-    max-width: 700px;
-}
-
-textarea, input, select {
-    width: 100%;
-    max-width: 100%;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: var(--container-bg-color);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+    }
+    textarea, input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 1rem;
+      background-color: var(--button-bg-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: var(--button-hover-color);
+    }
+    #result {
+      margin-top: 20px;
+      padding: 10px;
+      background: var(--result-bg-color);
+      border: 1px solid var(--result-border-color);
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+    #result table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid #ccc;
+    }
+    #result th,
+    #result td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    #result th {
+      background-color: var(--result-table-th-bg);
+      color: white;
+    }
+    .spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      border-left-color: #000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
 <div style="position: absolute; top: 20px; left: 30px;">
     <img src="Navin.jpeg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.2);" / style="width: 80px; height: 80px; border-radius: 50%;" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 8px rgba(0,0,0,0.2);">
 </div>
 
-<div style="position: absolute; top: 30px; right: 30px; display: flex; align-items: center; gap: 10px;">
+<div style="position: absolute; top: 30px; right: 30px;">
     <a href="https://coff.ee/9cz644dq57s" target="_blank" style="
         text-decoration: none;
-        background-color: #ffdd00;
-        color: #000;
+        background-color: var(--link-bg-color);
+        color: var(--link-text-color);
         padding: 8px 14px;
         border-radius: 6px;
         font-weight: 600;
@@ -211,13 +160,12 @@ textarea, input, select {
     ">
         ☕ Buy Me a Coffee
     </a>
-    <select id="themeSelector" onchange="changeTheme(this.value)" style="padding: 6px; border-radius: 6px;">
-        <option value="">Default</option>
-        <option value="ocean-breeze">Ocean Breeze</option>
-        <option value="earth-tones">Earth Tones</option>
-        <option value="midnight">Midnight</option>
+    <select id="themeSelector" style="margin-left:10px; padding:6px; border-radius:6px;">
+      <option value="ocean">Ocean Breeze</option>
+      <option value="earth">Earth Tones</option>
+      <option value="midnight">Midnight</option>
     </select>
-</div>
+  </div>
 
 <div class="container">
     
