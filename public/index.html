@@ -245,6 +245,21 @@
     <div id="results"></div>
 
     <script>
+function applyTheme(name) {
+      document.body.classList.remove('theme-ocean', 'theme-earth', 'theme-midnight');
+      document.body.classList.add('theme-' + name);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const selector = document.getElementById('themeSelector');
+      const saved = localStorage.getItem('theme') || 'ocean';
+      applyTheme(saved);
+      selector.value = saved;
+      selector.addEventListener('change', () => {
+        applyTheme(selector.value);
+        localStorage.setItem('theme', selector.value);
+      });
+    });
         async function generateRisks() {
           
             const projectName = document.getElementById('projectName').value;
@@ -400,10 +415,7 @@ document.getElementById('spinner').style.display = 'none';
             });
         }
 
-      function applyTheme(name) {
-      document.body.classList.remove('theme-ocean', 'theme-earth', 'theme-midnight');
-      document.body.classList.add('theme-' + name);
-    }
+     
     </script>
 </div>
 </body>
