@@ -19,7 +19,7 @@
 }
 
 /* Theme classes */
-body.sunset {
+body.ocean-breeze {
     --bg-color: #fff6f2;
     --text-color: #5a2e2e;
     --container-bg: #ffffff;
@@ -29,7 +29,7 @@ body.sunset {
     --heading-end: #feb47b;
 }
 
-body.forest {
+body.earth-tones {
     --bg-color: #f1f4f3;
     --text-color: #2f3e46;
     --container-bg: #ffffff;
@@ -39,7 +39,7 @@ body.forest {
     --heading-end: #355c7d;
 }
 
-body.dark {
+body.midnight {
     --bg-color: #1f2937;
     --text-color: #f3f4f6;
     --container-bg: #111827;
@@ -198,7 +198,7 @@ textarea, input, select {
     <img src="Navin.jpeg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.2);" / style="width: 80px; height: 80px; border-radius: 50%;" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 8px rgba(0,0,0,0.2);">
 </div>
 
-<div style="position: absolute; top: 30px; right: 30px;">
+<div style="position: absolute; top: 30px; right: 30px; display: flex; align-items: center; gap: 10px;">
     <a href="https://coff.ee/9cz644dq57s" target="_blank" style="
         text-decoration: none;
         background-color: #ffdd00;
@@ -211,6 +211,12 @@ textarea, input, select {
     ">
         ☕ Buy Me a Coffee
     </a>
+    <select id="themeSelector" onchange="changeTheme(this.value)" style="padding: 6px; border-radius: 6px;">
+        <option value="">Default</option>
+        <option value="ocean-breeze">Ocean Breeze</option>
+        <option value="earth-tones">Earth Tones</option>
+        <option value="midnight">Midnight</option>
+    </select>
 </div>
 
 <div class="container">
@@ -225,20 +231,12 @@ textarea, input, select {
     margin-bottom: 2rem;
 ">AI Project Risk Assistant</h1>
 
-    <div class="form-group" style="max-width: 100%;">
-    <label>Theme</label>
-    <select id="themeSelector" onchange="changeTheme(this.value)" style="width: 100%; max-width: 100%; display: block;">
-        <option value="">Default</option>
-        <option value="sunset">Sunset</option>
-        <option value="forest">Forest</option>
-        <option value="dark">Dark Mode</option>
-    </select>
-    </div>
 
     <div class="form-group"><label>Project Name</label>
-    <input type="text" id="projectName" />
+    <input type="text" id="projectName" /></div>
+
     <div class="form-group" style="max-width: 100%;">
-<label>Project Type</label>
+    <label>Project Type</label>
     <select id="projectType" style="width: 100%; max-width: 100%; display: block;">
     <option>AI Integration into Existing Systems</option>
     <option>AI/ML Deployment</option>
@@ -264,23 +262,26 @@ textarea, input, select {
     <option>New ERP Implementation</option>
     <option>New Software Implementation</option>
     <option>Other</option>
-</select></div></div>
+</select>
+    </div>
+
     <div class="form-group"><label>Scope Description</label>
     <textarea id="scopeDescription" rows="5" placeholder="Describe the project scope briefly..."></textarea></div>
-    <div class="form-group">
-<div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-    <div style="flex: 1; min-width: 260px; max-width: 300px; margin-right: 1rem;">
-        <label>Target Start Date</label>
-        <input type="date" id="startDate" />
-    </div>
-    <div style="flex: 1; min-width: 260px; max-width: 300px; margin-left: auto;">
-        <label>Target End Date</label>
-        <input type="date" id="endDate" />
-    </div>
-</div>
 
-    <label>Constraints</label>
+    <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 260px; max-width: 300px;">
+            <label>Target Start Date</label>
+            <input type="date" id="startDate" />
+        </div>
+        <div style="flex: 1; min-width: 260px; max-width: 300px;">
+            <label>Target End Date</label>
+            <input type="date" id="endDate" />
+        </div>
+    </div>
+
+    <div class="form-group"><label>Constraints</label>
     <textarea id="constraints" rows="5" placeholder="e.g., Limited budget, tight deadline..."></textarea></div>
+
     <div class="form-group"><label>Known Issues / Concerns</label>
     <textarea id="knownIssues" rows="5" placeholder="e.g., Legacy system instability, vendor delays..."></textarea></div>
     <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
