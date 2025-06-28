@@ -6,12 +6,55 @@
     <title>AI Project Risk Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
+:root {
+    --bg-color: #f3f4f6;
+    --text-color: #1f2937;
+    --container-bg: #ffffff;
+    --button-bg: #2563eb;
+    --button-hover-bg: #1d4ed8;
+    --input-bg: #f9fafb;
+    --input-border: #d1d5db;
+    --heading-start: #3b82f6;
+    --heading-end: #9333ea;
+}
+
+/* Theme classes */
+body.sunset {
+    --bg-color: #fff6f2;
+    --text-color: #5a2e2e;
+    --container-bg: #ffffff;
+    --button-bg: #ff6b6b;
+    --button-hover-bg: #ff2e2e;
+    --heading-start: #ff7e5f;
+    --heading-end: #feb47b;
+}
+
+body.forest {
+    --bg-color: #f1f4f3;
+    --text-color: #2f3e46;
+    --container-bg: #ffffff;
+    --button-bg: #52796f;
+    --button-hover-bg: #354f52;
+    --heading-start: #79b473;
+    --heading-end: #355c7d;
+}
+
+body.dark {
+    --bg-color: #1f2937;
+    --text-color: #f3f4f6;
+    --container-bg: #111827;
+    --button-bg: #3b82f6;
+    --button-hover-bg: #2563eb;
+    --heading-start: #22d3ee;
+    --heading-end: #3b82f6;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f3f4f6;
-    color: #1f2937;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-size: 16px;
 }
 
@@ -19,7 +62,7 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 2rem 1.5rem;
-    background: #ffffff;
+    background: var(--container-bg);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
@@ -28,14 +71,14 @@ h1 {
     text-align: center;
     font-size: 2.25rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--text-color);
     margin-bottom: 2rem;
 }
 
 h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937;
+    color: var(--text-color);
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
@@ -53,21 +96,21 @@ input, textarea, select, button {
     margin-top: 0.5rem;
     margin-bottom: 1.25rem;
     padding: 0.75rem 1rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    background-color: #f9fafb;
+    background-color: var(--input-bg);
 }
 
 input:focus, textarea:focus, select:focus {
-    border-color: #3b82f6;
+    border-color: var(--heading-start);
     outline: none;
     background-color: #ffffff;
 }
 
 button {
-    background-color: #2563eb;
+    background-color: var(--button-bg);
     color: white;
     border: none;
     cursor: pointer;
@@ -79,7 +122,7 @@ button {
 }
 
 button:hover {
-    background-color: #1d4ed8;
+    background-color: var(--button-hover-bg);
 }
 
 table {
@@ -92,7 +135,7 @@ table {
 }
 
 table thead {
-    background-color: #f3f4f6;
+    background-color: var(--bg-color);
 }
 
 table th, table td {
@@ -102,7 +145,7 @@ table th, table td {
 }
 
 table tr:hover {
-    background-color: #f9fafb;
+    background-color: var(--input-bg);
 }
 
 table th {
@@ -176,11 +219,21 @@ textarea, input, select {
     font-size: 2.5rem;
     font-weight: 800;
     text-align: center;
-    background: linear-gradient(to right, #3b82f6, #9333ea);
+    background: linear-gradient(to right, var(--heading-start), var(--heading-end));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 2rem;
 ">AI Project Risk Assistant</h1>
+
+    <div class="form-group" style="max-width: 100%;">
+    <label>Theme</label>
+    <select id="themeSelector" onchange="changeTheme(this.value)" style="width: 100%; max-width: 100%; display: block;">
+        <option value="">Default</option>
+        <option value="sunset">Sunset</option>
+        <option value="forest">Forest</option>
+        <option value="dark">Dark Mode</option>
+    </select>
+    </div>
 
     <div class="form-group"><label>Project Name</label>
     <input type="text" id="projectName" />
@@ -396,6 +449,10 @@ document.getElementById('spinner').style.display = 'none';
                 y: 10,
                 html2canvas: { scale: 0.5 }
             });
+        }
+
+        function changeTheme(theme) {
+            document.body.className = theme;
         }
     </script>
 </div>
