@@ -5,67 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>AI Project Risk Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
-    :root {
-      --bg-color: #f9f9f9;
-      --text-color: #333;
-      --container-bg-color: #ffffff;
-      --button-bg-color: #2563eb;
-      --button-hover-color: #1d4ed8;
-      --header-gradient-start: #3b82f6;
-      --header-gradient-end: #9333ea;
-      --result-bg-color: #f0f0f0;
-      --result-border-color: #ddd;
-      --result-table-th-bg: #2563eb;
-      --link-bg-color: #ffdd00;
-      --link-text-color: #000;
-    }
-
-    /* Ocean Breeze theme */
-    .theme-ocean {
-      --bg-color: #e0f7fa;
-      --text-color: #006064;
-      --container-bg-color: #ffffff;
-      --button-bg-color: #00acc1;
-      --button-hover-color: #00838f;
-      --header-gradient-start: #00acc1;
-      --header-gradient-end: #004d40;
-      --result-bg-color: #b2ebf2;
-      --result-border-color: #4dd0e1;
-      --result-table-th-bg: #00acc1;
-    }
-
-    /* Earth Tones theme */
-    .theme-earth {
-      --bg-color: #f7f4e9;
-      --text-color: #7b4b3a;
-      --container-bg-color: #ffffff;
-      --button-bg-color: #c19a6b;
-      --button-hover-color: #966d4f;
-      --header-gradient-start: #c19a6b;
-      --header-gradient-end: #7b4b3a;
-      --result-bg-color: #f0eae2;
-      --result-border-color: #d6c7b7;
-      --result-table-th-bg: #c19a6b;
-    }
-
-    /* Midnight theme */
-    .theme-midnight {
-      --bg-color: #1a1a2e;
-      --text-color: #e0e0e0;
-      --container-bg-color: #16213e;
-      --button-bg-color: #0f3460;
-      --button-hover-color: #e94560;
-      --header-gradient-start: #0f3460;
-      --header-gradient-end: #e94560;
-      --result-bg-color: #212c45;
-      --result-border-color: #33415c;
-      --result-table-th-bg: #0f3460;
-    }
-
-   body {
+    <style>
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
@@ -202,10 +143,12 @@ textarea, input, select {
     width: 100%;
     max-width: 100%;
 }
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
 </head>
 <body>
 <div style="position: absolute; top: 20px; left: 30px;">
@@ -215,8 +158,8 @@ textarea, input, select {
 <div style="position: absolute; top: 30px; right: 30px;">
     <a href="https://coff.ee/9cz644dq57s" target="_blank" style="
         text-decoration: none;
-        background-color: var(--link-bg-color);
-        color: var(--link-text-color);
+        background-color: #ffdd00;
+        color: #000;
         padding: 8px 14px;
         border-radius: 6px;
         font-weight: 600;
@@ -225,12 +168,7 @@ textarea, input, select {
     ">
         ☕ Buy Me a Coffee
     </a>
-    <select id="themeSelector" style="margin-left:10px; padding:6px; border-radius:6px;">
-      <option value="ocean">Ocean Breeze</option>
-      <option value="earth">Earth Tones</option>
-      <option value="midnight">Midnight</option>
-    </select>
-  </div>
+</div>
 
 <div class="container">
     
@@ -238,18 +176,16 @@ textarea, input, select {
     font-size: 2.5rem;
     font-weight: 800;
     text-align: center;
-    background: linear-gradient(to right, var(--heading-start), var(--heading-end));
+    background: linear-gradient(to right, #3b82f6, #9333ea);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 2rem;
 ">AI Project Risk Assistant</h1>
 
-
     <div class="form-group"><label>Project Name</label>
-    <input type="text" id="projectName" /></div>
-
+    <input type="text" id="projectName" />
     <div class="form-group" style="max-width: 100%;">
-    <label>Project Type</label>
+<label>Project Type</label>
     <select id="projectType" style="width: 100%; max-width: 100%; display: block;">
     <option>AI Integration into Existing Systems</option>
     <option>AI/ML Deployment</option>
@@ -275,26 +211,23 @@ textarea, input, select {
     <option>New ERP Implementation</option>
     <option>New Software Implementation</option>
     <option>Other</option>
-</select>
-    </div>
-
+</select></div></div>
     <div class="form-group"><label>Scope Description</label>
     <textarea id="scopeDescription" rows="5" placeholder="Describe the project scope briefly..."></textarea></div>
-
-    <div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
-        <div style="flex: 1; min-width: 260px; max-width: 300px;">
-            <label>Target Start Date</label>
-            <input type="date" id="startDate" />
-        </div>
-        <div style="flex: 1; min-width: 260px; max-width: 300px;">
-            <label>Target End Date</label>
-            <input type="date" id="endDate" />
-        </div>
+    <div class="form-group">
+<div class="form-group" style="display: flex; gap: 1.5rem; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 260px; max-width: 300px; margin-right: 1rem;">
+        <label>Target Start Date</label>
+        <input type="date" id="startDate" />
     </div>
+    <div style="flex: 1; min-width: 260px; max-width: 300px; margin-left: auto;">
+        <label>Target End Date</label>
+        <input type="date" id="endDate" />
+    </div>
+</div>
 
-    <div class="form-group"><label>Constraints</label>
+    <label>Constraints</label>
     <textarea id="constraints" rows="5" placeholder="e.g., Limited budget, tight deadline..."></textarea></div>
-
     <div class="form-group"><label>Known Issues / Concerns</label>
     <textarea id="knownIssues" rows="5" placeholder="e.g., Legacy system instability, vendor delays..."></textarea></div>
     <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
@@ -310,21 +243,6 @@ textarea, input, select {
     <div id="results"></div>
 
     <script>
-function applyTheme(name) {
-      document.body.classList.remove('theme-ocean', 'theme-earth', 'theme-midnight');
-      document.body.classList.add('theme-' + name);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const selector = document.getElementById('themeSelector');
-      const saved = localStorage.getItem('theme') || 'ocean';
-      applyTheme(saved);
-      selector.value = saved;
-      selector.addEventListener('change', () => {
-        applyTheme(selector.value);
-        localStorage.setItem('theme', selector.value);
-      });
-    });
         async function generateRisks() {
           
             const projectName = document.getElementById('projectName').value;
@@ -479,8 +397,6 @@ document.getElementById('spinner').style.display = 'none';
                 html2canvas: { scale: 0.5 }
             });
         }
-
-     
     </script>
 </div>
 </body>
