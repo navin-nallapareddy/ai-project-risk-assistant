@@ -400,9 +400,10 @@ document.getElementById('spinner').style.display = 'none';
             });
         }
 
-        function changeTheme(theme) {
-            document.body.className = theme;
-        }
+      function applyTheme(name) {
+      document.body.classList.remove('theme-ocean', 'theme-earth', 'theme-midnight');
+      document.body.classList.add('theme-' + name);
+    }
     </script>
 </div>
 </body>
