@@ -6,12 +6,45 @@
     <title>AI Project Risk Assistant</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
+:root {
+    --bg-color: #f3f4f6;
+    --text-color: #1f2937;
+    --container-bg: #ffffff;
+    --button-bg: #2563eb;
+    --button-hover-bg: #1d4ed8;
+    --table-header-bg: #f3f4f6;
+    --input-bg: #f9fafb;
+    --input-border: #d1d5db;
+}
+
+body.ocean-theme {
+    --bg-color: #e0f7fa;
+    --text-color: #006064;
+    --container-bg: #ffffff;
+    --button-bg: #00acc1;
+    --button-hover-bg: #00838f;
+    --table-header-bg: #b2ebf2;
+    --input-bg: #e0f7fa;
+    --input-border: #00acc1;
+}
+
+body.dark-theme {
+    --bg-color: #1f2937;
+    --text-color: #f3f4f6;
+    --container-bg: #374151;
+    --button-bg: #10b981;
+    --button-hover-bg: #059669;
+    --table-header-bg: #4b5563;
+    --input-bg: #4b5563;
+    --input-border: #374151;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f3f4f6;
-    color: #1f2937;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     font-size: 16px;
 }
 
@@ -19,7 +52,7 @@ body {
     max-width: 800px;
     margin: 40px auto;
     padding: 2rem 1.5rem;
-    background: #ffffff;
+    background: var(--container-bg);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
@@ -28,14 +61,14 @@ h1 {
     text-align: center;
     font-size: 2.25rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--text-color);
     margin-bottom: 2rem;
 }
 
 h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937;
+    color: var(--text-color);
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
@@ -53,11 +86,11 @@ input, textarea, select, button {
     margin-top: 0.5rem;
     margin-bottom: 1.25rem;
     padding: 0.75rem 1rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
-    background-color: #f9fafb;
+    background-color: var(--input-bg);
 }
 
 input:focus, textarea:focus, select:focus {
@@ -67,7 +100,7 @@ input:focus, textarea:focus, select:focus {
 }
 
 button {
-    background-color: #2563eb;
+    background-color: var(--button-bg);
     color: white;
     border: none;
     cursor: pointer;
@@ -79,7 +112,7 @@ button {
 }
 
 button:hover {
-    background-color: #1d4ed8;
+    background-color: var(--button-hover-bg);
 }
 
 table {
@@ -92,7 +125,7 @@ table {
 }
 
 table thead {
-    background-color: #f3f4f6;
+    background-color: var(--table-header-bg);
 }
 
 table th, table td {
@@ -102,7 +135,7 @@ table th, table td {
 }
 
 table tr:hover {
-    background-color: #f9fafb;
+    background-color: var(--input-bg);
 }
 
 table th {
@@ -155,7 +188,7 @@ textarea, input, select {
     <img src="Navin.jpeg" alt="Profile" style="width: 80px; height: 80px; border-radius: 50%; box-shadow: 0 0 10px rgba(0,0,0,0.2);" / style="width: 80px; height: 80px; border-radius: 50%;" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 8px rgba(0,0,0,0.2);">
 </div>
 
-<div style="position: absolute; top: 30px; right: 30px;">
+<div style="position: absolute; top: 30px; right: 30px; display: flex; align-items: center; gap: 10px;">
     <a href="https://coff.ee/9cz644dq57s" target="_blank" style="
         text-decoration: none;
         background-color: #ffdd00;
@@ -168,6 +201,11 @@ textarea, input, select {
     ">
         ☕ Buy Me a Coffee
     </a>
+    <select id="themeSelector" style="padding: 6px; border-radius: 6px;">
+        <option value="">Default</option>
+        <option value="ocean-theme">Ocean Breeze</option>
+        <option value="dark-theme">Dark Mode</option>
+    </select>
 </div>
 
 <div class="container">
@@ -397,6 +435,14 @@ document.getElementById('spinner').style.display = 'none';
                 html2canvas: { scale: 0.5 }
             });
         }
+
+        document.getElementById('themeSelector').addEventListener('change', function () {
+            const theme = this.value;
+            document.body.classList.remove('ocean-theme', 'dark-theme');
+            if (theme) {
+                document.body.classList.add(theme);
+            }
+        });
     </script>
 </div>
 </body>
